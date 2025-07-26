@@ -173,6 +173,13 @@
           display: block !important;
         }
 
+        #mobileControlsTop {
+          transform: translateX(-50%) rotate(180deg) !important;
+        }
+        #mobileControlsTop button {
+          transform: rotate(180deg); /* re-rotate buttons upright */
+        }
+
         #mobileControlsTop,
         #mobileControlsBottom {
           display: none;
@@ -246,27 +253,27 @@
   <div id="mobileControlsTop" style="display: none;">
   <div style="margin-bottom: 10px;">Player 1</div>
   <div>
-    <button onclick="setDirection('up', 1)" style="width: 45px; height: 45px;">⬆️</button>
+    <button onclick="setDirection('up', 1)">⬆️</button>
   </div>
   <div>
-    <button onclick="setDirection('left', 1)" style="width: 45px; height: 45px;">⬅️</button>
-    <button onclick="setDirection('down', 1)" style="width: 45px; height: 45px;">⬇️</button>
-    <button onclick="setDirection('right', 1)" style="width: 45px; height: 45px;">➡️</button>
+    <button onclick="setDirection('left', 1)">⬅️</button>
+    <button onclick="setDirection('down', 1)">⬇️</button>
+    <button onclick="setDirection('right', 1)">➡️</button>
   </div>
-  </div>
+</div>
 
 <!-- PLAYER 2 CONTROLS (BOTTOM) -->
-  <div id="mobileControlsBottom" style="display: none;">
-    <div style="margin-bottom: 10px;">Player 2</div>
-    <div>
-      <button onclick="setDirection('up', 2)" style="width: 45px; height: 45px;">⬆️</button>
-    </div>
-    <div>
-      <button onclick="setDirection('left', 2)" style="width: 45px; height: 45px;">⬅️</button>
-      <button onclick="setDirection('down', 2)" style="width: 45px; height: 45px;">⬇️</button>
-      <button onclick="setDirection('right', 2)" style="width: 45px; height: 45px;">➡️</button>
-    </div>
+<div id="mobileControlsBottom" style="display: none;">
+  <div style="margin-bottom: 10px;">Player 2</div>
+  <div>
+    <button onclick="setDirection('up', 2)">⬆️</button>
   </div>
+  <div>
+    <button onclick="setDirection('left', 2)">⬅️</button>
+    <button onclick="setDirection('down', 2)">⬇️</button>
+    <button onclick="setDirection('right', 2)">➡️</button>
+  </div>
+</div>
 
   <div id="mobileControls" style="display: none; position: absolute; bottom: 145px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 100;">
   <div style="margin-bottom: 10px;">
@@ -643,19 +650,18 @@
       return newFood;
     }
 
-    function setDirection(dir) {
+    function setDirection(dir, player = 1) {
       if (player === 1) {
-      if (dir === "up" && direction.y !== 1) direction = { x: 0, y: -1 };
-      if (dir === "down" && direction.y !== -1) direction = { x: 0, y: 1 };
-      if (dir === "left" && direction.x !== 1) direction = { x: -1, y: 0 };
-      if (dir === "right" && direction.x !== -1) direction = { x: 1, y: 0 };
-
+        if (dir === "up" && direction.y !== 1) direction = { x: 0, y: -1 };
+        if (dir === "down" && direction.y !== -1) direction = { x: 0, y: 1 };
+        if (dir === "left" && direction.x !== 1) direction = { x: -1, y: 0 };
+        if (dir === "right" && direction.x !== -1) direction = { x: 1, y: 0 };
       } else {
-    if (dir === "up" && direction2.y !== 1) direction2 = { x: 0, y: -1 };
-    if (dir === "down" && direction2.y !== -1) direction2 = { x: 0, y: 1 };
-    if (dir === "left" && direction2.x !== 1) direction2 = { x: -1, y: 0 };
-    if (dir === "right" && direction2.x !== -1) direction2 = { x: 1, y: 0 };
-  }
+        if (dir === "up" && direction2.y !== 1) direction2 = { x: 0, y: -1 };
+        if (dir === "down" && direction2.y !== -1) direction2 = { x: 0, y: 1 };
+        if (dir === "left" && direction2.x !== 1) direction2 = { x: -1, y: 0 };
+        if (dir === "right" && direction2.x !== -1) direction2 = { x: 1, y: 0 };
+      }
 
       if (!started && gameState === 'playing') {
         started = true;
