@@ -1,6 +1,8 @@
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>8-Bit Snake Game</title>
   <style>
     body {
@@ -217,7 +219,7 @@
         }
 
       #highscore {
-        bottom: 120px;
+        bottom: 110px;
       }
 
       #score2 {
@@ -253,18 +255,18 @@
 
   </style>
 </head>
-<body onkeydown="return false;" onscroll="window.scrollTo(0,0);" style="touch-action: none;" class="dual-controls">
+<body onkeydown="return false;" onscroll="window.scrollTo(0,0);" style="touch-action: none;">
   <div id="score">Score: 0</div>
   <div id="level">Level: 1</div>
-  <div id="highscore">High Score: 57</div>
-  <div id="score2" style="top: 60px; left: 20px; color: rgb(0, 255, 0); position: absolute; font-size: 20px; text-shadow: rgb(255, 255, 255) 0px 0px 5px; display: block;">Player 2 Score: 0</div>
+  <div id="highscore">High Score: 0</div>
+  <div id="score2" style="top: 60px; left: 20px; color: #0f0; position: absolute; font-size: 20px; text-shadow: 0 0 5px #fff; display: none;">
+  Player 2 Score: 0 </div>
 
   <div id="powerupTimerDisplay" style="top: 60px; right: 20px; color: gold; position: absolute; font-size: 20px; text-shadow: 0 0 5px #fff; display: none;">
     Power-Up: 10
   </div>
 
-  <div id="mobileControlsTop" style="display: block;">
-  
+  <div id="mobileControlsTop" style="display: none;">
   <div>
      <button onclick="setDirection('down', 1)">⬇️</button>
 
@@ -278,8 +280,7 @@
 </div>
 
 <!-- PLAYER 2 CONTROLS (BOTTOM) -->
-<div id="mobileControlsBottom" style="display: block;">
-  
+<div id="mobileControlsBottom" style="display: none;">
   <div>
     <button onclick="setDirection('up', 2)">⬆️</button>
   </div>
@@ -290,10 +291,25 @@
   </div>
 </div>
 
-  
+  <div id="mobileControls" style="display: none; position: absolute; bottom: 145px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 100;">
+  <div style="margin-bottom: 10px;">
+
+    <button onclick="setDirection('down')" style="width: 55px; height: 55px;">⬇️</button>
+  </div>
+  <div>
+    <button onclick="setDirection('right')" style="width: 55px; height: 55px;">➡️</button>
+    <button onclick="setDirection('up')" style="width: 55px; height: 55px;">⬆️</button>
+    <button onclick="setDirection('left')" style="width: 55px; height: 55px;">⬅️</button>
 
 
-  <div id="mainMenu" style="display: none;">
+  </div>
+  <div style="margin-top: 10px;">
+    <button onclick="togglePause()" style="width: 180px; height: 40px;">⏸️ Pause</button>
+  </div>
+  </div>
+
+
+  <div id="mainMenu">
     <h1>8-Bit Snake</h1>
     <button class="menu-button" onclick="selectMode('single')">Single Player</button>
     <button class="menu-button" onclick="selectMode('multi')">2 Players</button>
@@ -307,15 +323,15 @@
     </div>
     <div id="powerups-submenu" style="display: none; margin-top: 10px; text-align: left; font-size: 16px; padding-left: 50px;">
     <label style="display:block; cursor: pointer;">
-      <input type="checkbox" id="toggle-slow" checked="" onchange="togglePowerupType('slow')">
+      <input type="checkbox" id="toggle-slow" checked onchange="togglePowerupType('slow')" />
       <span style="color:#f8ff16;">Slow-Down</span>
     </label>
     <label style="display:block; cursor: pointer;">
-      <input type="checkbox" id="toggle-ghost" checked="" onchange="togglePowerupType('ghost')">
+      <input type="checkbox" id="toggle-ghost" checked onchange="togglePowerupType('ghost')" />
       <span style="color:#ffffff;">Ghost Mode</span>
     </label>
     <label style="display:block; cursor: pointer;">
-    <input type="checkbox" id="toggle-shrink" checked="" onchange="togglePowerupType('shrink')">
+    <input type="checkbox" id="toggle-shrink" checked onchange="togglePowerupType('shrink')" />
       <span style="color:#7a07a6;">Shrink</span>
     </label>
     </div>
@@ -323,20 +339,20 @@
 
 
 
-  <div id="skinSelector" style="display: none;">
-    <p id="skinPrompt">Player 2: Select Snake Skin</p>
+  <div id="skinSelector">
+    <p id="skinPrompt">Select Player 1 Skin:</p>
     <button class="skin-option" data-skin="default" onclick="setSkin(this, 'default')">Default</button>
     <button class="skin-option" data-skin="blue" onclick="setSkin(this, 'blue')">Blue</button>
     <button class="skin-option" data-skin="yellow" onclick="setSkin(this, 'yellow')">Yellow</button>
     <button class="skin-option" data-skin="purple" onclick="setSkin(this, 'purple')">Purple</button>
     <button class="skin-option" data-skin="green" onclick="setSkin(this, 'green')">Green</button>
-    <button class="skin-option selected" data-skin="pink" onclick="setSkin(this, 'pink')" disabled="">Pink</button>
-    <br>
+    <button class="skin-option" data-skin="pink" onclick="setSkin(this, 'pink')">Pink</button>
+    <br />
     <button id="startGameBtn" onclick="nextSkinStep()">Start Game</button>
   </div>
 
   <div id="gameOverScreen"><div>Game Over</div><button onclick="returnToMenu()">Main Menu</button></div>
-  <canvas id="game" width="400" height="400" style="display: block;"></canvas>
+  <canvas id="game" width="400" height="400"></canvas>
 
   <div id="pauseOverlay" style="
   display: none;
@@ -1134,6 +1150,5 @@
     window.setDirection = setDirection;
 
   </script>
-
-
-</body></html>
+</body>
+</html>
